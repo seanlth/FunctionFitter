@@ -18,9 +18,18 @@ import Foundation
 //10010
 
 
+//[255, 255]
+//[255, 255]
+//[1  , 255]
+
+
 //2 0
 
 //255
+
+
+//11
+//11
 
 
 class Num {
@@ -30,7 +39,10 @@ class Num {
         self.Number = [number];
     }
     
-    
+    func printNum()
+    {
+        
+    }
 }
 
 
@@ -39,15 +51,23 @@ func + (l: Num, r: Num) -> Num {
     
     var length = (l.Number.count > r.Number.count ? l.Number.count : r.Number.count)
     
+    var remainder: UInt8 = 0
+    var carry: UInt8 = 0;
+    
     for var i = 0; i < length; i++ {
-        
-        var remainder: UInt8 = 0
 
-        if (255 - l.Number[i] > r.Number[i]) {
-            remainder = l.Number[i] + r.Number[i]
+        if 255 - l.Number[i] < r.Number[i] {
+            result.Number[i] = l.Number[i] &+ r.Number[i] + carry
+            carry = 1;
         }
-        
-        result.Number[i] = l.Number[i] + r.Number[i]
+        else {
+            result.Number[i] = l.Number[i] + r.Number[i]
+            carry = 0;
+        }
+    }
+    
+    if carry == 1 {
+        result.Number.append(carry);
     }
 
     return r
