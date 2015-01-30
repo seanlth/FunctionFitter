@@ -31,47 +31,204 @@ import Foundation
 //11
 //11
 
+//256
+//256
+
+//3210
+//1000
+//1000
+//000
+
+//1
+
+class StringNum {
+    
+    
+    
+}
 
 class Num {
-    var Number: [UInt8]
+    private var Number: [UInt8]
+    
+    private func append(i: Int, n: UInt8) {
+        if (i >= Number.count) {
+            self.Number.append(n)
+        }
+        else {
+            self.Number[i] = n
+        }
+    }
     
     init(number: UInt8) {
-        self.Number = [number];
+        if (number >= 100) {
+            self.Number = [99]
+        }
+        else {
+            self.Number = [number]
+        }
     }
     
     func printNum()
     {
+        var stringNum = ""
         
+        for var i = self.Number.count-1; i >= 0; i-- {
+            if (i == self.Number.count-1) {
+                stringNum += String(self.Number[i])
+            }
+            else {
+                if (self.Number[i] > 10) {
+                    stringNum += String(self.Number[i])
+                }
+                else {
+                    stringNum += "0" + String(self.Number[i])
+                }
+            }
+        }
+        print(stringNum)
+    }
+    
+    subscript(i :Int) -> UInt8 {
+        if (self.Number.count <= i) {
+            return 0
+        }
+        return self.Number[i]
     }
 }
 
 
 func + (l: Num, r: Num) -> Num {
-    var result: Num = Num(number: 0);
+    var result: Num = Num(number: 0)
     
     var length = (l.Number.count > r.Number.count ? l.Number.count : r.Number.count)
-    
+
     var remainder: UInt8 = 0
-    var carry: UInt8 = 0;
+    var carry: UInt8 = 0
+    
     
     for var i = 0; i < length; i++ {
+        
+        
+        var max: UInt8 = (l[i] > r[i] ? l[i] : r[i])
+        var min: UInt8 = (l[i] > r[i] ? r[i] : l[i])
 
-        if 255 - l.Number[i] < r.Number[i] {
-            result.Number[i] = l.Number[i] &+ r.Number[i] + carry
-            carry = 1;
+        if 100 - l[i] <= r[i] {
+            
+            var remainder = min - (100 - max);
+            
+            result.append(i, n: remainder)
+            carry = 1
         }
         else {
-            result.Number[i] = l.Number[i] + r.Number[i]
-            carry = 0;
+           
+            result.append(i, n: l[i] + r[i] + carry)
+            
+            carry = 0
         }
     }
     
     if carry == 1 {
-        result.Number.append(carry);
+        result.Number.append(carry)
     }
 
-    return r
+    return result
 }
+
+//1, 0
+//0, 1
+//0, 99
+
+//1, 1
+//2, 1
+
+func - (l: Num, r: Num) -> Num {
+    
+    var result: Num = Num(number: 0)
+    
+    var length = (l.Number.count > r.Number.count ? l.Number.count : r.Number.count)
+    
+    var remainder: UInt8 = 0
+    var carry: UInt8 = 0
+    
+    
+    for var i = 0; i < length; i++ {
+        
+        
+        var max: UInt8 = (l[i] > r[i] ? l[i] : r[i])
+        var min: UInt8 = (l[i] > r[i] ? r[i] : l[i])
+        
+        if 100 - l[i] <= r[i] {
+            
+            var remainder = min - (100 - max);
+            
+            result.append(i, n: remainder)
+            carry = 1
+        }
+        else {
+            
+            result.append(i, n: l[i] - r[i] + carry)
+            
+            carry = 0
+        }
+    }
+    
+    if carry == 1 {
+        result.Number.append(carry)
+    }
+    
+    return result
+}
+
+
+func * (l: Num, r: Num) -> Num {
+    var result: Num = Num(number: 0)
+    
+    
+    //for var i = 0; i < nu)
+    
+    
+//    var length = (l.Number.count > r.Number.count ? l.Number.count : r.Number.count)
+//    
+//    var remainder: UInt8 = 0
+//    var carry: UInt8 = 0
+//    
+//    
+//    for var i = 0; i < length; i++ {
+//        
+//        
+//        var max: UInt8 = (l[i] > r[i] ? l[i] : r[i])
+//        var min: UInt8 = (l[i] > r[i] ? r[i] : l[i])
+//        
+//        if UInt8(ceil(100.0 / Double(l[i]))) <= r[i] {
+//            
+//            var remainder = min - (100 - max);
+//            
+//            result.append(i, n: remainder)
+//            carry = 1
+//        }
+//        else {
+//            
+//            result.append(i, n: l[i] + r[i])
+//            
+//            carry = 0
+//        }
+//    }
+//    
+//    if carry == 1 {
+//        result.Number.append(carry)
+//    }
+    
+    return result
+}
+
+
+func < (l: Num, r: Num) -> Bool {
+    var result: Num = Num(number: 0)
+    
+    
+    return false;
+}
+
 
 
 
