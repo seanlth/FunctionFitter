@@ -13,17 +13,22 @@ var f = MFraction(numerator: 1, denominator: 2)
 //f.printFraction();
 
 
-var n1 = Num(number: 99)
-var n2 = Num(number: 99)
+var n1 = Num(number: [1, 1, 98]) //10198
+var n2 = Num(number: [99]) //99
 var r = n1
 
 
-println(n1 - n2)
+r = n2 * n2
+r = r * r
+
+
+//println( n2 ^ 2 )
 
 //for i in (0...1000) {
     //r = r + n2
     //r.printNum()
     //println()
+
 //}
 
 //
@@ -31,6 +36,9 @@ println(n1 - n2)
 //1, 21
 
 //11*11 = 121
+
+
+
 
 //121 - 100
 //98 * 98
